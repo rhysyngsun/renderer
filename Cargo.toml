@@ -1,0 +1,19 @@
+[package]
+
+name = "renderer"
+version = "0.0.1"
+authors = ["Nathan Levesque <rhysyngsun@gmail.com>"]
+
+[[bin]]
+name = "renderer"
+test = false
+doc = false
+bench = false
+
+
+[features]
+# Generate arbitrary instances of nalgebra types for testing with quickcheck
+arbitrary = ["quickcheck"]
+
+[dependencies.quickcheck]
+optional = true
