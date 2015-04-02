@@ -71,8 +71,8 @@ impl ops::Neg for Point {
 impl ops::Index<usize> for Point {
     type Output = f64;
 
-    fn index(&self, i: &usize) -> &f64 {
-        match *i {
+    fn index(&self, i: usize) -> &f64 {
+        match i {
             0 => &self.x,
             1 => &self.y,
             2 => &self.z,
@@ -82,8 +82,8 @@ impl ops::Index<usize> for Point {
 }
 
 impl ops::IndexMut<usize> for Point {
-    fn index_mut<'a>(&'a mut self, i: &usize) -> &'a mut f64 {
-        match *i {
+    fn index_mut<'a>(&'a mut self, i: usize) -> &'a mut f64 {
+        match i {
             0 => &mut self.x,
             1 => &mut self.y,
             2 => &mut self.z,
