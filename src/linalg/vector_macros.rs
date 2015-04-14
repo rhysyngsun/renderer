@@ -2,7 +2,7 @@
 
 macro_rules! new_impl {
     ($t: ident, $( $s:ident ), +) => {
-        impl<N> $t<N> {
+        impl<N : BaseNum> $t<N> {
             #[inline]
             pub fn new($( $s: N ), +) -> $t<N> {
                 $t {
@@ -15,7 +15,7 @@ macro_rules! new_impl {
 
 macro_rules! add_impl {
     ($t: ident, $( $s:ident ), +) => {
-        impl<N : Add<Output=N>> Add for $t<N> {
+        impl<N : BaseNum> Add for $t<N> {
             type Output = $t<N>;
 
             fn add(self, rhs: $t<N>) -> $t<N> {
@@ -30,7 +30,7 @@ macro_rules! add_impl {
 
 macro_rules! sub_impl {
     ($t: ident, $( $s:ident ), +) => {
-        impl<N : Sub<Output=N>> Sub for $t<N> {
+        impl<N : BaseNum> Sub for $t<N> {
             type Output = $t<N>;
 
             fn sub(self, rhs: $t<N>) -> $t<N> {
@@ -46,7 +46,7 @@ macro_rules! sub_impl {
 macro_rules! div_impl {
     ($t: ident, $( $s:ident ), +) => {
 
-        impl<N : Div<Output=N> + Mul<Output=N> + One + Zero + Eq + Copy> Div<N> for $t<N> {
+        impl<N : BaseNum> Div<N> for $t<N> {
             type Output = $t<N>;
 
             fn div(self, rhs: N) -> $t<N> {
@@ -64,7 +64,7 @@ macro_rules! div_impl {
 macro_rules! mul_impl {
     ($t: ident, $( $s:ident ), +) => {
 
-        impl<N : Mul<Output=N> + Copy> Mul<N> for $t<N> {
+        impl<N : BaseNum> Mul<N> for $t<N> {
             type Output = $t<N>;
 
             fn mul(self, rhs: N) -> $t<N> {
@@ -80,7 +80,7 @@ macro_rules! mul_impl {
 macro_rules! neg_impl {
     ($t: ident, $( $s:ident ), +) => {
 
-        impl<N : Neg<Output=N>> Neg for $t<N> {
+        impl<N : BaseNum> Neg for $t<N> {
             type Output = $t<N>;
 
             fn neg(self) -> $t<N> {
@@ -107,7 +107,7 @@ macro_rules! add (
 macro_rules! dot_impl {
     ($t: ident, $( $s:ident ), +) => {
 
-        impl<N : Add<Output=N> + Mul<Output=N> + Copy> $t<N> {
+        impl<N : BaseNum> $t<N> {
             #[inline]
             fn dot(&self, rhs: &$t<N>) -> N {
                 add!($( self.$s * rhs.$s ), + )
@@ -118,7 +118,7 @@ macro_rules! dot_impl {
 
 macro_rules! len_impl {
     ($t: ident, $( $s:ident ), +) => {
-        impl<N : Add<Output=N> + Mul<Output=N> + NumCast + Copy> $t<N> {
+        impl<N : BaseNum> $t<N> {
 
             pub fn length_squared(&self) -> N {
                 add!($( self.$s * self.$s ), + )
@@ -133,7 +133,7 @@ macro_rules! len_impl {
 
 macro_rules! zero_impl {
     ($t: ident, $( $s:ident ), +) => {
-        impl<N : Zero> Zero for $t<N> {
+        impl<N : BaseNum> Zero for $t<N> {
             #[inline]
             fn zero() -> Self {
                 $t {
@@ -150,12 +150,34 @@ macro_rules! zero_impl {
 
 macro_rules! one_impl {
     ($t: ident, $( $s:ident ), +) => {
-        impl<N : One> One for $t<N> {
+        impl<N : BaseNum> One for $t<N> {
             #[inline]
             fn one() -> Self {
                 $t {
                     $( $s: N::one() ), +
                 }
+            }
+        }
+    }
+}
+
+macro_rules! eq_impl {
+    ($t: ident, $( $s: ident ), +) => {
+        impl<N : BaseNum> PartialEq for $t<N> {
+            fn eq(&self, other: &t<N>) -> $t<N> {
+                $(self.$s == other.$s)&&+
+            }
+        }
+    }
+}
+
+macro_rules! arbitrary_impl {
+    ($t: ident, $( $s: ident), +) => {
+        #[cfg(feature="arbitrary")]
+        impl<N : BaseNum + Arbitrary> Arbitrary for $t<N> {
+            #[inline]
+            fn arbitrary<G: Gen>(g: &mut G) -> $t<N> {
+                $t { $($s: Arbitrary::arbitrary(g),)* }
             }
         }
     }

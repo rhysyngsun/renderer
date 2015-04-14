@@ -3,7 +3,7 @@ use std::ops;
 use linalg::Vector3;
 
 
-#[derive(Debug, Copy)]
+#[derive(Debug, Copy, Clone)]
 pub struct Point {
     x: f64,
     y: f64,

@@ -10,10 +10,6 @@ test = false
 doc = false
 bench = false
 
+[dev_dependencies]
+quickcheck_macros = "*"
 
-[features]
-# Generate arbitrary instances of nalgebra types for testing with quickcheck
-arbitrary = ["quickcheck"]
-
-[dependencies.quickcheck]
-optional = true
