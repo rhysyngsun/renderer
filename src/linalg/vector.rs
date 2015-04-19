@@ -61,6 +61,7 @@ len_impl!(Vector3, x, y, z);
 zero_impl!(Vector3, x, y, z);
 one_impl!(Vector3, x, y, z);
 arbitrary_impl!(Vector3, x, y, z);
+eq_impl!(Vector3, x, y, z);
 
 // impl<N> ops::Index<usize> for Vector3<N> {
 //     type Output = f64;
@@ -90,8 +91,10 @@ arbitrary_impl!(Vector3, x, y, z);
 mod test {
     use super::Vector3;
 
+    extern crate quickcheck;
+
     #[quickcheck]
-    fn add_vec(v1: Vector3<f64>, v2:Vector3<f64>) {
+    fn add_vec(v1: Vector3<f64>, v2:Vector3<f64>) -> bool {
         let v3 = v1 + v2;
         let v4 = Vector3::new(v1.x + v2.x, v1.y + v2.y, v3.z + v3.z);
         v3 == v4

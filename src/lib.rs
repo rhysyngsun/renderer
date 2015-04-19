@@ -2,11 +2,13 @@
 #![feature(plugin)]
 #![feature(custom_attribute)]
 
-#![plugin(quickcheck_macros)]
+#![cfg_attr(test, plugin(quickcheck_macros))]
 
 #![allow(dead_code)]
 
+#[cfg(test)]
 extern crate quickcheck;
+#[cfg(test)]
 extern crate quickcheck_macros;
 
 mod film;

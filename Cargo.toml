@@ -12,4 +12,3 @@ bench = false
 
 [dev_dependencies]
 quickcheck_macros = "*"
-

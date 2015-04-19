@@ -164,8 +164,8 @@ macro_rules! one_impl {
 macro_rules! eq_impl {
     ($t: ident, $( $s: ident ), +) => {
         impl<N : BaseNum> PartialEq for $t<N> {
-            fn eq(&self, other: &t<N>) -> $t<N> {
-                $(self.$s == other.$s)&&+
+            fn eq(&self, other: &$t<N>) -> bool {
+                $(self.$s - other.$s)&&+
             }
         }
     }

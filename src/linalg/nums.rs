@@ -23,6 +23,17 @@ pub trait Cross {
     fn cross(&self, other: &Self) -> Self::Output;
 }
 
+pub trait ApproxEq<Eps> {
+    fn approx_eq(&self, other: &Self, epsilon: &Eps) -> bool;
+}
+
+impl ApproxEq<f64> for f64 {
+    fn approx_eq(&self, other: f64, epsilon: f64) -> bool {
+        ::abs(&(*self - *other)) < *epsilon
+    }
+}
+
+
 // Bring back the Zero trait
 pub trait Zero {
     fn zero() -> Self;
