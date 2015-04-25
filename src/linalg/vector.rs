@@ -12,6 +12,8 @@ use std::ops::{
     Mul,
     Div,
     Neg,
+    Index,
+    IndexMut,
 };
 
 use linalg::{
@@ -80,42 +82,23 @@ zero_impl!(Vector3, x, y, z);
 one_impl!(Vector3, x, y, z);
 arbitrary_impl!(Vector3, x, y, z);
 approx_eq_impl!(Vector3, x, y, z);
-impl_to_array!(Vector3, 3);
-
-// impl<N> ops::Index<usize> for Vector3<N> {
-//     type Output = f64;
-//
-//     fn index(&self, i: &usize) -> &f64 {
-//         match *i {
-//             0 => &self.x,
-//             1 => &self.y,
-//             2 => &self.z,
-//             _ => panic!("Invalid index for Vector3"),
-//         }
-//     }
-// }
-//
-// impl<N> ops::IndexMut<usize> for Vector3<N> {
-//     fn index_mut<'a>(&'a mut self, i: &usize) -> &'a mut f64 {
-//         match *i {
-//             0 => &mut self.x,
-//             1 => &mut self.y,
-//             2 => &mut self.z,
-//             _ => panic!("Invalid index for Point"),
-//         }
-//     }
-// }
+to_array_impl!(Vector3, 3);
+index_impl!(Vector3);
 
 #[cfg(test)]
 mod test {
+    #![macro_use]
+
     use super::Vector3;
     use linalg::Zero;
     use quickcheck::TestResult;
 
     const EPSILON: f64 = 1e-6f64;
 
+
+
     #[quickcheck]
-    fn op_add_vec3(v1: Vector3<f64>, v2:Vector3<f64>) -> bool {
+    fn op_add_vec3(v1: Vector3<f64>, v2: Vector3<f64>) -> bool {
         let v3 = v1 + v2;
         let v4 = Vector3::new(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
         //println!("Expected {:?} + {:?} == {:?}, got {:?}", v1, v2, v4, v3);
@@ -123,7 +106,7 @@ mod test {
     }
 
     #[quickcheck]
-    fn op_sub_vec3(v1: Vector3<f64>, v2:Vector3<f64>) -> bool {
+    fn op_sub_vec3(v1: Vector3<f64>, v2: Vector3<f64>) -> bool {
         let v3 = v1 - v2;
         let v4 = Vector3::new(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
         //println!("Expected {:?} - {:?} == {:?}, got {:?}", v1, v2, v4, v3);
@@ -150,9 +133,27 @@ mod test {
     }
 
     #[quickcheck]
-    fn to_array(v:Vector3<f64>) -> bool {
+    fn to_array(v: Vector3<f64>) -> bool {
         let ar = v.to_array();
         let ax = [v.x, v.y, v.z];
         PartialEq::eq(ar, &ax)
+    }
+
+    #[quickcheck]
+    fn op_index(v: Vector3<f64>) -> bool {
+        v[0] == v.x && v[1] == v.y && v[2] == v.z
+    }
+
+    #[quickcheck]
+    fn op_index_mut(v: Vector3<f64>) -> bool {
+        let v2 = &mut v.clone();
+
+        v2[0] = 0.0;
+        v2[1] = 0.0;
+        v2[2] = 0.0;
+
+        ::approx_eq(&v2.x, &0.0, &EPSILON) &&
+            ::approx_eq(&v2.y, &0.0, &EPSILON) &&
+            ::approx_eq(&v2.z, &0.0, &EPSILON)
     }
 }

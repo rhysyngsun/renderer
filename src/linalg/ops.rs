@@ -24,6 +24,10 @@ pub trait Cross {
     fn cross(&self, other: &Self) -> Self::Output;
 }
 
+pub trait Dot {
+    fn dot(&self, other: &Self) -> Self;
+}
+
 pub trait ApproxEq<Eps> {
     fn approx_eq(&self, other: &Self, epsilon: &Eps) -> bool;
 }

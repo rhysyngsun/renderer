@@ -183,7 +183,7 @@ macro_rules! arbitrary_impl {
     }
 }
 
-macro_rules! impl_to_array {
+macro_rules! to_array_impl {
     ($t: ident, $len: expr) => {
         impl<N> $t<N> {
             fn to_array(&self) -> &[N; $len] {
@@ -191,6 +191,31 @@ macro_rules! impl_to_array {
                     mem::transmute(self)
                 }
             }
+
+            fn to_array_mut(&mut self) -> &mut[N; $len] {
+                unsafe {
+                    mem::transmute(self)
+                }
+            }
         }
     }
+}
+
+macro_rules! index_impl {
+    ($t: ident) => (
+        impl<N> Index<usize> for $t<N> {
+            type Output = N;
+
+            fn index(&self, i: usize) -> &N {
+                &self.to_array()[i]
+            }
+        }
+
+        impl<N> IndexMut<usize> for $t<N> {
+            fn index_mut(&mut self, i: usize) -> &mut N {
+                &mut self.to_array_mut()[i]
+            }
+        }
+    )
+
 }
