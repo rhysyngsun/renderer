@@ -161,11 +161,11 @@ macro_rules! one_impl {
     }
 }
 
-macro_rules! eq_impl {
+macro_rules! approx_eq_impl {
     ($t: ident, $( $s: ident ), +) => {
-        impl<N : BaseNum> PartialEq for $t<N> {
-            fn eq(&self, other: &$t<N>) -> bool {
-                $(self.$s - other.$s)&&+
+        impl<N : BaseNum> ApproxEq<N> for $t<N> {
+            fn approx_eq(&self, other: &$t<N>, eps: &N) -> bool {
+                $(::approx_eq(&self.$s, &other.$s, eps))&&+
             }
         }
     }
@@ -173,11 +173,23 @@ macro_rules! eq_impl {
 
 macro_rules! arbitrary_impl {
     ($t: ident, $( $s: ident), +) => {
-        #[cfg(feature="arbitrary")]
+        #[cfg(test)]
         impl<N : BaseNum + Arbitrary> Arbitrary for $t<N> {
             #[inline]
             fn arbitrary<G: Gen>(g: &mut G) -> $t<N> {
                 $t { $($s: Arbitrary::arbitrary(g),)* }
+            }
+        }
+    }
+}
+
+macro_rules! impl_to_array {
+    ($t: ident, $len: expr) => {
+        impl<N> $t<N> {
+            fn to_array(&self) -> &[N; $len] {
+                unsafe {
+                    mem::transmute(self)
+                }
             }
         }
     }

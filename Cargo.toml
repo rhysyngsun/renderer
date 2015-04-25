@@ -11,4 +11,6 @@ doc = false
 bench = false
 
 [dev_dependencies]
+quickcheck = "*"
 quickcheck_macros = "*"
+

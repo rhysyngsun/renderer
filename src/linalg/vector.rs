@@ -1,16 +1,34 @@
+use std::mem;
 
-use std::num::{Float,ToPrimitive,NumCast};
-use std::ops::{Add,Sub,Mul,Div,Neg};
+use std::num::{
+    Float,
+    ToPrimitive,
+    NumCast,
+};
 
-use linalg::{One,Zero,Cross,BaseNum};
+use std::ops::{
+    Add,
+    Sub,
+    Mul,
+    Div,
+    Neg,
+};
 
-#[cfg(feature="arbitrary")]
+use linalg::{
+    One,
+    Zero,
+    Cross,
+    BaseNum,
+    ApproxEq,
+};
+
+#[cfg(test)]
 use quickcheck::{Arbitrary, Gen};
 
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
-pub struct Vector3<N : BaseNum> {
+pub struct Vector3<N> {
     pub x: N,
     pub y: N,
     pub z: N
@@ -61,7 +79,8 @@ len_impl!(Vector3, x, y, z);
 zero_impl!(Vector3, x, y, z);
 one_impl!(Vector3, x, y, z);
 arbitrary_impl!(Vector3, x, y, z);
-eq_impl!(Vector3, x, y, z);
+approx_eq_impl!(Vector3, x, y, z);
+impl_to_array!(Vector3, 3);
 
 // impl<N> ops::Index<usize> for Vector3<N> {
 //     type Output = f64;
@@ -90,14 +109,50 @@ eq_impl!(Vector3, x, y, z);
 #[cfg(test)]
 mod test {
     use super::Vector3;
+    use linalg::Zero;
+    use quickcheck::TestResult;
 
-    extern crate quickcheck;
+    const EPSILON: f64 = 1e-6f64;
 
     #[quickcheck]
-    fn add_vec(v1: Vector3<f64>, v2:Vector3<f64>) -> bool {
+    fn op_add_vec3(v1: Vector3<f64>, v2:Vector3<f64>) -> bool {
         let v3 = v1 + v2;
-        let v4 = Vector3::new(v1.x + v2.x, v1.y + v2.y, v3.z + v3.z);
-        v3 == v4
+        let v4 = Vector3::new(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+        //println!("Expected {:?} + {:?} == {:?}, got {:?}", v1, v2, v4, v3);
+        ::approx_eq(&v3, &v4, &EPSILON)
+    }
+
+    #[quickcheck]
+    fn op_sub_vec3(v1: Vector3<f64>, v2:Vector3<f64>) -> bool {
+        let v3 = v1 - v2;
+        let v4 = Vector3::new(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+        //println!("Expected {:?} - {:?} == {:?}, got {:?}", v1, v2, v4, v3);
+        ::approx_eq(&v3, &v4, &EPSILON)
+    }
+
+    #[quickcheck]
+    fn op_div_scalar(v1: Vector3<f64>, s: f64) -> TestResult {
+        if s.is_zero() {
+            return TestResult::discard()
+        }
+        let v3 = v1 / s;
+        let v4 = Vector3::new(v1.x / s, v1.y / s, v1.z / s);
+        //println!("Expected {:?} / {:?} == {:?}, got {:?}", v1, s, v4, v3);
+        TestResult::from_bool(::approx_eq(&v3, &v4, &EPSILON))
+    }
+
+    #[quickcheck]
+    fn op_mul_scalar(v1: Vector3<f64>, s: f64) -> bool {
+        let v3 = v1 * s;
+        let v4 = Vector3::new(v1.x * s, v1.y * s, v1.z * s);
+        //println!("Expected {:?} * {:?} == {:?}, got {:?}", v1, s, v4, v3);
+        ::approx_eq(&v3, &v4, &EPSILON)
+    }
+
+    #[quickcheck]
+    fn to_array(v:Vector3<f64>) -> bool {
+        let ar = v.to_array();
+        let ax = [v.x, v.y, v.z];
+        PartialEq::eq(ar, &ax)
     }
 }
-

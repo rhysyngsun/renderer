@@ -2,6 +2,7 @@
 name = "renderer"
 version = "0.0.1"
 dependencies = [
+ "quickcheck 0.2.13 (registry+https://github.com/rust-lang/crates.io-index)",
  "quickcheck_macros 0.2.13 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 

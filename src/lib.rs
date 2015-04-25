@@ -8,8 +8,6 @@
 
 #[cfg(test)]
 extern crate quickcheck;
-#[cfg(test)]
-extern crate quickcheck_macros;
 
 mod film;
 mod linalg;
@@ -20,3 +18,15 @@ mod renderer;
 mod sampler;
 mod scene;
 
+pub use linalg::{
+    Absolute,
+    ApproxEq,
+};
+
+pub fn abs<N: Absolute<Result>, Result>(n: &N) -> Result {
+    Absolute::abs(n)
+}
+
+pub fn approx_eq<N: ApproxEq<M>, M>(a: &N, b: &N, eps: &M) -> bool {
+    ApproxEq::approx_eq(a, b, eps)
+}

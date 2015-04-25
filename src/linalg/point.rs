@@ -99,7 +99,7 @@ mod test {
     use linalg::Vector3;
 
     #[test]
-    fn test_point_op_add_point() {
+    fn op_add_point() {
         let v = Point{x: 10.0, y: 8.0, z: 6.0};
         let v2 = v + v;
 
@@ -109,7 +109,7 @@ mod test {
     }
 
     #[test]
-    fn test_point_op_sub_point() {
+    fn op_sub_point() {
         let v = Point{x: 10.0, y: 8.0, z: 6.0};
         let v2 = v - v;
 
@@ -119,7 +119,7 @@ mod test {
     }
 
     #[test]
-    fn test_point_op_sub_vector3() {
+    fn op_sub_vector3() {
         let v = Point{x: 10.0, y: 8.0, z: 6.0};
         let v2 = Vector3{x: 4.0, y: 2.0, z: 2.0};
         let v3 = v - v2;
@@ -130,7 +130,7 @@ mod test {
     }
 
     #[test]
-    fn test_point_op_mul_f64() {
+    fn op_mul_scalar() {
         let v = Point{x: 10.0, y: 8.0, z: 6.0};
         let v2 = v * 2.0;
 
@@ -140,17 +140,7 @@ mod test {
     }
 
     #[test]
-    fn test_point_div_nonzero_f64() {
-        let v = Point{x: 10.0, y: 8.0, z: 6.0};
-        let v2 = v / 2.0;
-
-        assert_eq!(v2.x, 5.0);
-        assert_eq!(v2.y, 4.0);
-        assert_eq!(v2.z, 3.0);
-    }
-
-    #[test]
-    fn test_point_op_neg() {
+    fn op_neg() {
         let v = Point{x: 10.0, y: -8.0, z: 6.0};
         let v2 = -v;
 
@@ -160,14 +150,24 @@ mod test {
     }
 
     #[test]
+    fn op_div_nonzero_scalar() {
+        let v = Point{x: 10.0, y: 8.0, z: 6.0};
+        let v2 = v / 2.0;
+
+        assert_eq!(v2.x, 5.0);
+        assert_eq!(v2.y, 4.0);
+        assert_eq!(v2.z, 3.0);
+    }
+
+    #[test]
     #[should_panic]
-    fn test_point_op_div_zero_f64() {
+    fn op_div_zero_scalar() {
         let v = Point{x: 10.0, y: 8.0, z: 6.0};
         v / 0.0;
     }
 
     #[test]
-    fn test_point_op_index() {
+    fn op_index() {
         let v = Point{x: 10.0, y: 8.0, z: 6.0};
 
         assert_eq!(v[0], 10.0);
@@ -176,7 +176,7 @@ mod test {
     }
 
     #[test]
-    fn test_point_op_mut_index() {
+    fn op_mut_index() {
         let mut v = Point{x: 10.0, y: 8.0, z: 6.0};
 
         v[0] = 2.0;
