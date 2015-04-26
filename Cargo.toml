@@ -10,6 +10,10 @@ test = false
 doc = false
 bench = false
 
+[dependencies]
+docopt = "*"
+rustc-serialize = "*"
+
 [dev_dependencies]
 quickcheck = "*"
 quickcheck_macros = "*"
