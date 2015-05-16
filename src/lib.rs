@@ -1,6 +1,6 @@
-#![feature(core)]
 #![feature(plugin)]
 #![feature(custom_attribute)]
+#![feature(zero_one)]
 
 #![cfg_attr(test, plugin(quickcheck_macros))]
 
