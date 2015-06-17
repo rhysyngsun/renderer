@@ -21,8 +21,11 @@ pub use self::ops::{
 pub use self::intersection::Intersection;
 pub use self::ray_differential::RayDifferential;
 
+pub use self::bbox::BBox;
+
 mod ops;
 
+mod bbox;
 mod intersection;
 mod vector_macros;
 mod vector;

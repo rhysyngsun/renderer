@@ -26,7 +26,7 @@ use linalg::{
 #[cfg(test)]
 use quickcheck::{Arbitrary, Gen};
 
-
+/// A vector of 3 values
 #[repr(C)]
 #[derive(Debug, Copy, Clone)]
 pub struct Vector3<N> {
@@ -35,9 +35,10 @@ pub struct Vector3<N> {
     pub z: N
 }
 
-impl<N : Copy + Mul<Output = N> + Sub<Output = N>> Cross for Vector3<N> {
+impl<N : BaseNum> Cross for Vector3<N> {
     type Output = Self;
 
+    #[inline]
     fn cross(&self, v:&Vector3<N>) -> Vector3<N> {
         Vector3 {
             x: (self.y * v.z) - (self.z * v.y),

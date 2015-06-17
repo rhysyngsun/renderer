@@ -9,14 +9,15 @@
 #[cfg(test)]
 extern crate quickcheck;
 
-mod film;
-mod linalg;
-mod integrator;
-mod light;
-mod primative;
-mod renderer;
-mod sampler;
-mod scene;
+
+pub mod film;
+pub mod linalg;
+pub mod integrator;
+pub mod light;
+pub mod primative;
+pub mod renderer;
+pub mod sampler;
+pub mod scene;
 
 pub use linalg::{
     Absolute,

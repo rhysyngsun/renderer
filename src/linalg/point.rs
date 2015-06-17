@@ -18,6 +18,7 @@ use linalg::{
     ApproxEq,
 };
 
+/// A point of 3 values
 #[derive(Debug, Copy, Clone)]
 pub struct Point3<N> {
     pub x: N,
@@ -28,7 +29,7 @@ pub struct Point3<N> {
 scalar_new_impl!(Point3, x, y, z);
 scalar_add_impl!(Point3, x, y, z);
 pnt_add_vec_impl!(Point3, Vector3, x, y, z);
-scalar_sub_impl!(Point3, x, y, z);
+pnt_sub_pnt_impl!(Point3, Vector3, x, y, z);
 pnt_sub_vec_impl!(Point3, Vector3, x, y, z);
 scalar_mul_impl!(Point3, x, y, z);
 pnt_mul_vec_impl!(Point3, Vector3, x, y, z);
@@ -36,8 +37,10 @@ scalar_div_impl!(Point3, x, y, z);
 scalar_neg_impl!(Point3, x, y, z);
 scalar_to_array_impl!(Point3, 3);
 scalar_index_impl!(Point3);
+pnt_distance_impl!(Point3);
 
 pub type Point3f64 = Point3<f64>;
+
 
 #[cfg(test)]
 mod test {
