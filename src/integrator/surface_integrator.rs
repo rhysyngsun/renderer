@@ -1,14 +1,13 @@
-
-use scene::{
+use core::{
     Camera,
     Scene,
+    Integrator,
 };
-
-use integrator::Integrator;
 
 pub struct SurfaceIntegrator;
 
 impl Integrator for SurfaceIntegrator {
-    fn preprocess(&self, scene: &Scene, camera: &Camera) {
+    #[allow(unused_variables)]
+    fn preprocess<T : Camera>(&self, scene: &Scene, camera: &T) {
     }
 }

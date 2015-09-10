@@ -1,21 +1,30 @@
-pub use self::camera::Camera;
 
-mod camera;
-
-use primative::Aggregate;
-use light::Light;
+use core::Light;
+use primative::{
+    Aggregate,
+    TransformedPrimative,
+};
 use linalg::{
     Ray,
     Intersection,
 };
 
 pub struct Scene {
-    aggregate: Box<Aggregate>,
-    lights: Vec<Box<Light>>,
+    pub aggregate: Box<Aggregate>,
+    pub lights: Vec<Box<Light>>,
     //volume_region: VolumeRegion,
 }
 
 impl Scene {
+    pub fn new() -> Scene {
+        Scene {
+            aggregate: box TransformedPrimative {
+                dummy: true,
+            },
+            lights: vec![],
+        }
+    }
+
     pub fn intersect<'a>(&'a self, ray: &'a Ray<f64>, isect: &'a Intersection) -> bool {
         (*self.aggregate).intersect(ray, isect)
     }
@@ -24,4 +33,3 @@ impl Scene {
         (*self.aggregate).intersect_p(ray)
     }
 }
-

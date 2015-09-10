@@ -4,13 +4,15 @@ version = "0.0.1"
 authors = ["Nathan Levesque <rhysyngsun@gmail.com>"]
 
 [[bin]]
-name = "renderer"
+name = "renderer-bin"
+path = "src/bin/renderer.rs"
 test = false
 doc = false
 bench = false
 
 [dependencies]
 docopt = "*"
+nom = "~0.3.0"
 rustc-serialize = "*"
 
 [dev_dependencies]

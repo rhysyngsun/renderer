@@ -3,6 +3,7 @@ name = "renderer"
 version = "0.0.1"
 dependencies = [
  "docopt 0.6.66 (registry+https://github.com/rust-lang/crates.io-index)",
+ "nom 0.3.9 (registry+https://github.com/rust-lang/crates.io-index)",
  "quickcheck 0.2.19 (registry+https://github.com/rust-lang/crates.io-index)",
  "quickcheck_macros 0.2.19 (registry+https://github.com/rust-lang/crates.io-index)",
  "rustc-serialize 0.3.14 (registry+https://github.com/rust-lang/crates.io-index)",
@@ -30,6 +31,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 dependencies = [
  "libc 0.1.8 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
+
+[[package]]
+name = "nom"
+version = "0.3.9"
+source = "registry+https://github.com/rust-lang/crates.io-index"
 
 [[package]]
 name = "quickcheck"

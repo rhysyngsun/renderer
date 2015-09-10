@@ -1,13 +1,15 @@
-use scene::Scene;
+use core::{
+    Sampler,
+    Scene,
+};
 use linalg::RayDifferential;
-use sampler::Sampler;
 use film::Spectrum;
+
+mod sampler_renderer;
 
 pub use self::sampler_renderer::{
     SamplerRenderer,
 };
-
-mod sampler_renderer;
 
 trait Renderer {
     fn render(&self, scene: &Scene);

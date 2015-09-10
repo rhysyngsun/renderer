@@ -1,7 +1,10 @@
 extern crate rustc_serialize;
 extern crate docopt;
+extern crate renderer;
 
 use docopt::Docopt;
+
+use renderer::formats::parse;
 
 // Write the Docopt usage string.
 static USAGE: &'static str = "
@@ -20,5 +23,9 @@ fn main() {
     println!("{:?}", args);
     // TODO: init
     // TODO: parse scene
+    match parse(&args.arg_scene_file) {
+        Ok(scene) => println!("got scene"),
+        Err(msg) => println!("Error parsing scene file: {:?}", msg),
+    };
     // TODO: cleanup
 }
