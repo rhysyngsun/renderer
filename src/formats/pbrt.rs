@@ -5,7 +5,10 @@ use core::{
 use lights::{
     PointLight,
 };
-use linalg::Point3f64;
+use linalg::{
+    Point3,
+    Transform,
+};
 use primative::{
     TransformedPrimative,
 };
@@ -30,6 +33,8 @@ pub enum PbrtSceneConsumerState {
 pub struct PbrtSceneConsumer {
     pub scene: Scene,
     pub state: PbrtSceneConsumerState,
+
+    t: Transform,
 }
 
 impl PbrtSceneConsumer {

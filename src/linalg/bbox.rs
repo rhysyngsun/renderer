@@ -4,13 +4,13 @@ use linalg::{
 };
 
 
-pub struct BBox<N> {
-    pub p_min: Point3<N>,
-    pub p_max: Point3<N>,
+pub struct BBox {
+    pub p_min: Point3,
+    pub p_max: Point3,
 }
 
-impl<N : BaseNum> BBox<N> {
-    fn volume(&self) -> N {
+impl BBox {
+    fn volume(&self) -> f64 {
         let d = self.p_max - self.p_min;
         d.x * d.y * d.z
     }

@@ -3,7 +3,6 @@
 pub use self::ray::Ray;
 pub use self::point::{
     Point3,
-    Point3f64
 };
 
 pub use self::vector::{
@@ -23,6 +22,11 @@ pub use self::ray_differential::RayDifferential;
 
 pub use self::bbox::BBox;
 
+pub use self::transform::{
+    Matrix4x4,
+    Transform,
+};
+
 mod ops;
 
 mod bbox;
@@ -33,3 +37,4 @@ mod point_macros;
 mod point;
 mod ray;
 mod ray_differential;
+mod transform;

@@ -1,10 +1,10 @@
 
-use linalg::Point3f64;
+use linalg::Point3;
 
 use core::Light;
 
 pub struct PointLight {
-    pub position: Point3f64,
+    pub position: Point3,
 }
 
 impl Light for PointLight {
