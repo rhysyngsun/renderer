@@ -12,7 +12,7 @@ bench = false
 
 [dependencies]
 docopt = "*"
-nom = "~0.3.0"
+nom = "~0.5.0"
 rustc-serialize = "*"
 
 [dev_dependencies]
