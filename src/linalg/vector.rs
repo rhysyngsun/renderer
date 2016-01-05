@@ -11,7 +11,7 @@ use quickcheck::{Arbitrary, Gen};
 
 /// A vector of 3 values
 #[repr(C)]
-#[derive(Debug, Copy, Clone)]
+#[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Vector3 {
     pub x: f64,
     pub y: f64,
@@ -77,7 +77,7 @@ mod test {
     use linalg::ApproxEq;
 
     #[quickcheck]
-    fn op_add_vec3(v1: Vector3<f64>, v2: Vector3<f64>) -> bool {
+    fn op_add_vec3(v1: Vector3, v2: Vector3) -> bool {
         let v3 = v1 + v2;
         let v4 = Vector3::new(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
         // println!("Expected {:?} + {:?} == {:?}, got {:?}", v1, v2, v4, v3);
@@ -85,7 +85,7 @@ mod test {
     }
 
     #[quickcheck]
-    fn op_sub_vec3(v1: Vector3<f64>, v2: Vector3<f64>) -> bool {
+    fn op_sub_vec3(v1: Vector3, v2: Vector3) -> bool {
         let v3 = v1 - v2;
         let v4 = Vector3::new(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
         // println!("Expected {:?} - {:?} == {:?}, got {:?}", v1, v2, v4, v3);
@@ -93,7 +93,7 @@ mod test {
     }
 
     #[quickcheck]
-    fn op_div_scalar(v1: Vector3<f64>, s: f64) -> TestResult {
+    fn op_div_scalar(v1: Vector3, s: f64) -> TestResult {
         if ::approx_eq(&s, &0.0f64, &f64::approx_eps()) {
             return TestResult::discard();
         }
@@ -104,7 +104,7 @@ mod test {
     }
 
     #[quickcheck]
-    fn op_mul_scalar(v1: Vector3<f64>, s: f64) -> bool {
+    fn op_mul_scalar(v1: Vector3, s: f64) -> bool {
         let v3 = v1 * s;
         let v4 = Vector3::new(v1.x * s, v1.y * s, v1.z * s);
         // println!("Expected {:?} * {:?} == {:?}, got {:?}", v1, s, v4, v3);
@@ -112,19 +112,19 @@ mod test {
     }
 
     #[quickcheck]
-    fn to_array(v: Vector3<f64>) -> bool {
+    fn to_array(v: Vector3) -> bool {
         let ar = v.to_array();
         let ax = [v.x, v.y, v.z];
         PartialEq::eq(ar, &ax)
     }
 
     #[quickcheck]
-    fn op_index(v: Vector3<f64>) -> bool {
+    fn op_index(v: Vector3) -> bool {
         v[0] == v.x && v[1] == v.y && v[2] == v.z
     }
 
     #[quickcheck]
-    fn op_index_mut(v: Vector3<f64>) -> bool {
+    fn op_index_mut(v: Vector3) -> bool {
         let v2 = &mut v.clone();
 
         v2[0] = 0.0;

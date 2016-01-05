@@ -14,7 +14,7 @@ pub struct SamplerRenderer<'a, S: Sampler, C: Camera> {
     pub volume_integrator: &'a VolumeIntegrator,
 }
 
-impl<'a, S : Sampler, C : Camera> SamplerRenderer<'a, S, C> {
+impl<'a, S: Sampler, C: Camera> SamplerRenderer<'a, S, C> {
     fn new(sampler: S,
            camera: C,
            surface_integrator: &'a SurfaceIntegrator,
@@ -29,7 +29,7 @@ impl<'a, S : Sampler, C : Camera> SamplerRenderer<'a, S, C> {
     }
 }
 
-impl<'a, S : Sampler, C : Camera> Renderer for SamplerRenderer<'a, S, C> {
+impl<'a, S: Sampler, C: Camera> Renderer for SamplerRenderer<'a, S, C> {
     fn render(&self, scene: &Scene) {
         self.surface_integrator.preprocess(scene, &self.camera);
         self.volume_integrator.preprocess(scene, &self.camera);

@@ -1,6 +1,6 @@
 mod pbrt;
 
-use nom::{FileProducer, Consumer};
+use nom::{Producer, FileProducer, Consumer, ConsumerState};
 
 use core::Scene;
 
@@ -11,7 +11,9 @@ pub fn parse(file: &String) -> Result<Scene, String> {
     match FileProducer::new(file, 500) {
         Result::Ok(mut fp) => {
             let mut sc = PbrtSceneConsumer::new();
-            sc.run(&mut fp);
+
+            while let &ConsumerState::Continue(_) = fp.apply(&mut sc) {
+            }
 
             match sc.state {
                 PbrtSceneConsumerState::Done => {

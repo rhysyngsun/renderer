@@ -176,7 +176,7 @@ macro_rules! approx_eq_impl {
 macro_rules! arbitrary_impl {
     ($t: ident, $( $s: ident), +) => {
         #[cfg(test)]
-        impl<f64 : Arbitrary> Arbitrary for $t {
+        impl Arbitrary for $t {
             #[inline]
             fn arbitrary<G: Gen>(g: &mut G) -> $t {
                 $t { $($s: Arbitrary::arbitrary(g),) + }

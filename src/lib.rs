@@ -10,9 +10,11 @@
 
 #[macro_use]
 extern crate nom;
+extern crate regex;
 
 #[cfg(test)]
 extern crate quickcheck;
+
 
 pub mod cameras;
 pub mod core;
