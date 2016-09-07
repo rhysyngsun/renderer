@@ -8,6 +8,12 @@ pub struct Scene {
     pub lights: Vec<Box<Light>>, // volume_region: VolumeRegion,
 }
 
+impl Default for Scene {
+    fn default() -> Self {
+        Self::new()
+    }
+}
+
 impl Scene {
     /// Construct a  new scene
     pub fn new() -> Scene {

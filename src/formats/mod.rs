@@ -3,6 +3,7 @@
 
 use core::Scene;
 
+#[allow(unused_variables)]
 pub fn parse(file: &str) -> Result<Scene, String> {
     Result::Err(String::from("Not Implemented"))
 }

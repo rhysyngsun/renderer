@@ -5,6 +5,7 @@ use linalg::{Cross,Vector3};
 pub struct Mat4(pub [f64; 16]);
 
 /// Compute the inverse of a matrix
+#[allow(unused_variables)]
 pub fn inverse(m: &Mat4) -> Mat4 {
    unimplemented!()
 }
