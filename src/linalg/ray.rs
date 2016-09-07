@@ -14,6 +14,7 @@ pub struct Ray {
 }
 
 impl Ray {
+    /// Constructs a new ray
     fn new(origin: Point3, dir: Vector3, start: f64, end: f64, t: f64, d: usize) -> Self {
         Ray {
             origin: origin,

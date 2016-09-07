@@ -1,5 +1,7 @@
 pub trait Sampler {}
 
+/// Representation for a camera sample
+///
 pub struct CameraSample {
     pub image_x: f64,
     pub image_y: f64,

@@ -1,8 +1,13 @@
 #![macro_use]
 
-use std::num::{One, Zero};
 
-use std::ops::{Add, Sub, Mul, Div, Neg, Rem};
+pub trait One {
+    fn one() -> Self;
+}
+
+pub trait Zero {
+    fn zero() ->Self;
+}
 
 pub trait Sqrt<N> {
     fn sqrt(&Self) -> N;

@@ -16,6 +16,7 @@ struct Args {
     arg_scene_file: String,
 }
 
+
 fn main() {
     let args: Args = Docopt::new(USAGE)
                          .and_then(|d| d.decode())
@@ -24,7 +25,7 @@ fn main() {
     // TODO: init
     // TODO: parse scene
     match parse(&args.arg_scene_file) {
-        Ok(scene) => println!("got scene"),
+        Ok(_) => println!("Got scene"),
         Err(msg) => println!("Error parsing scene file: {:?}", msg),
     };
     // TODO: cleanup

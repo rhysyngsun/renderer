@@ -1,15 +1,17 @@
 #![feature(plugin)]
 #![feature(custom_attribute)]
-#![feature(zero_one)]
-#![feature(box_syntax)]
-#![feature(box_patterns)]
 
+// testing specific plugins (random data via quickcheck)
 #![cfg_attr(test, plugin(quickcheck_macros))]
+
+// conditionally enable clippy for linting
+#![cfg_attr(feature="clippy", plugin(clippy))]
+
 
 #![allow(dead_code)]
 
 #[macro_use]
-extern crate nom;
+extern crate num;
 extern crate regex;
 
 #[cfg(test)]

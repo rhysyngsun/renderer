@@ -1,3 +1,7 @@
 # Cargo
 target/
 *.rs.bk
+
+# intellij
+*.iml
+.idea/

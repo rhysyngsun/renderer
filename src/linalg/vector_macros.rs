@@ -133,6 +133,17 @@ macro_rules! len_impl {
     }
 }
 
+macro_rules! normalize_impl {
+    ($t: ident, $( $s:ident ), +) => {
+        impl $t {
+            #[inline]
+            pub fn normalize(self) -> $t {
+                self / self.length()
+            }
+        }
+    }
+}
+
 macro_rules! zero_impl {
     ($t: ident, $( $s:ident ), +) => {
         impl Zero for $t {

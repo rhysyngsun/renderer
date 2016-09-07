@@ -1,5 +1,6 @@
 use linalg::{Ray, Intersection};
 
+
 pub trait Primative {
     fn can_intersect(&self) -> bool;
     fn intersect(&self, ray: &Ray, isect: &Intersection) -> bool;
@@ -7,6 +8,7 @@ pub trait Primative {
 }
 
 pub struct GeometricPrimative;
+
 pub struct TransformedPrimative {
     pub dummy: bool,
 }

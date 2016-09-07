@@ -14,14 +14,14 @@ pub use self::bbox::BBox;
 
 pub use self::transform::{Mat4, Transform};
 
-mod ops;
+pub mod ops;
 
-mod bbox;
-mod intersection;
-mod vector_macros;
-mod vector;
-mod point_macros;
-mod point;
-mod ray;
-mod ray_differential;
-mod transform;
+pub mod bbox;
+pub mod intersection;
+pub mod vector_macros;
+pub mod vector;
+pub mod point_macros;
+pub mod point;
+pub mod ray;
+pub mod ray_differential;
+pub mod transform;

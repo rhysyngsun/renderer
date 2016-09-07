@@ -1,5 +1,4 @@
 use std::mem;
-use std::num::{Zero, One};
 use std::ops::{Add, Sub, Mul, Div, Neg, Index, IndexMut};
 use linalg::{Vector3, ApproxEq};
 

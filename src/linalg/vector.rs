@@ -1,15 +1,28 @@
 use std::mem;
 
-use std::num::{One, Zero};
+use std::ops::{
+    Add,
+    Sub,
+    Mul,
+    Div,
+    Neg,
+    Index,
+    IndexMut
+};
 
-use std::ops::{Add, Sub, Mul, Div, Neg, Index, IndexMut};
-
-use linalg::{Cross, ApproxEq, Absolute, Sqrt};
+use linalg::{
+    Cross,
+    ApproxEq
+};
+use linalg::ops::{
+    One,
+    Zero,
+};
 
 #[cfg(test)]
 use quickcheck::{Arbitrary, Gen};
 
-/// A vector of 3 values
+/// A 3-vector of f64 values
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq)]
 pub struct Vector3 {
@@ -61,6 +74,7 @@ scalar_mul_impl!(Vector3, x, y, z);
 scalar_neg_impl!(Vector3, x, y, z);
 dot_impl!(Vector3, x, y, z);
 len_impl!(Vector3, x, y, z);
+normalize_impl!(Vector3, x, y, z);
 zero_impl!(Vector3, x, y, z);
 one_impl!(Vector3, x, y, z);
 arbitrary_impl!(Vector3, x, y, z);
@@ -80,7 +94,7 @@ mod test {
     fn op_add_vec3(v1: Vector3, v2: Vector3) -> bool {
         let v3 = v1 + v2;
         let v4 = Vector3::new(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
-        // println!("Expected {:?} + {:?} == {:?}, got {:?}", v1, v2, v4, v3);
+
         ::approx_eq(&v3, &v4, &f64::approx_eps())
     }
 
@@ -88,7 +102,7 @@ mod test {
     fn op_sub_vec3(v1: Vector3, v2: Vector3) -> bool {
         let v3 = v1 - v2;
         let v4 = Vector3::new(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
-        // println!("Expected {:?} - {:?} == {:?}, got {:?}", v1, v2, v4, v3);
+
         ::approx_eq(&v3, &v4, &f64::approx_eps())
     }
 
@@ -99,7 +113,7 @@ mod test {
         }
         let v3 = v1 / s;
         let v4 = Vector3::new(v1.x / s, v1.y / s, v1.z / s);
-        // println!("Expected {:?} / {:?} == {:?}, got {:?}", v1, s, v4, v3);
+
         TestResult::from_bool(::approx_eq(&v3, &v4, &f64::approx_eps()))
     }
 
@@ -107,7 +121,7 @@ mod test {
     fn op_mul_scalar(v1: Vector3, s: f64) -> bool {
         let v3 = v1 * s;
         let v4 = Vector3::new(v1.x * s, v1.y * s, v1.z * s);
-        // println!("Expected {:?} * {:?} == {:?}, got {:?}", v1, s, v4, v3);
+
         ::approx_eq(&v3, &v4, &f64::approx_eps())
     }
 
