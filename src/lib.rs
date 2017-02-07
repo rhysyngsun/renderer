@@ -11,6 +11,7 @@
 #![allow(dead_code)]
 
 #[macro_use]
+extern crate nom;
 extern crate num;
 extern crate regex;
 

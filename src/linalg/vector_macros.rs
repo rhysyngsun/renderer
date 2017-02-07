@@ -205,9 +205,6 @@ macro_rules! scalar_to_array_impl {
                 }
             }
 
-            // quiet this warning due to the method name, self usage is correct here
-            // because we want an array that is a mutable window into self, so self must be mut
-            #[allow(wrong_self_convention)]
             fn to_array_mut(&mut self) -> &mut[f64; $len] {
                 unsafe {
                     mem::transmute(self)

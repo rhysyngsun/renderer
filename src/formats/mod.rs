@@ -1,5 +1,4 @@
-// TODO: implement PBRT file format parsing
-//mod pbrt;
+mod pbrt;
 
 use core::Scene;
 
