@@ -1,2 +1,6 @@
 
-pub struct RayDifferential;
+use linalg::Ray;
+
+pub struct RayDifferential {
+    ray: Ray,
+}
