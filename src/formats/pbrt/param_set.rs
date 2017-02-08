@@ -1,4 +1,5 @@
-use linalg::{Vector3, Point3};
+use linalg::vector::Vector3;
+use linalg::point::Point3;
 
 use std::collections::HashMap;
 
@@ -16,7 +17,7 @@ pub struct ParamSet {
     ints: HashMap<String, i32>,
     strings: HashMap<String, String>,
     points: HashMap<String, Point3>,
-    vectors: HashMap<String, Vector3>
+    vectors: HashMap<String, Vector3>,
 }
 
 

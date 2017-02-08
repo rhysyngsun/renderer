@@ -1,23 +1,8 @@
 use std::mem;
 
-use std::ops::{
-    Add,
-    Sub,
-    Mul,
-    Div,
-    Neg,
-    Index,
-    IndexMut
-};
+use std::ops::{Add, Sub, Mul, Div, Neg, Index, IndexMut};
 
-use linalg::{
-    Cross,
-    ApproxEq
-};
-use linalg::ops::{
-    One,
-    Zero,
-};
+use linalg::ops::{One, Zero, Cross, ApproxEq};
 
 #[cfg(test)]
 use quickcheck::{Arbitrary, Gen};
@@ -86,16 +71,16 @@ scalar_index_impl!(Vector3);
 mod test {
     #![macro_use]
 
-    use super::Vector3;
     use quickcheck::TestResult;
-    use linalg::ApproxEq;
+    use linalg::ops::ApproxEq;
+    use linalg::vector::Vector3;
 
     #[quickcheck]
     fn op_add_vec3(v1: Vector3, v2: Vector3) -> bool {
         let v3 = v1 + v2;
         let v4 = Vector3::new(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
 
-        ::approx_eq(&v3, &v4, &f64::approx_eps())
+        ApproxEq::approx_eq(&v3, &v4)
     }
 
     #[quickcheck]
@@ -103,18 +88,18 @@ mod test {
         let v3 = v1 - v2;
         let v4 = Vector3::new(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
 
-        ::approx_eq(&v3, &v4, &f64::approx_eps())
+        ApproxEq::approx_eq(&v3, &v4)
     }
 
     #[quickcheck]
     fn op_div_scalar(v1: Vector3, s: f64) -> TestResult {
-        if ::approx_eq(&s, &0.0f64, &f64::approx_eps()) {
+        if ApproxEq::approx_eq(&s, &0.0f64) {
             return TestResult::discard();
         }
         let v3 = v1 / s;
         let v4 = Vector3::new(v1.x / s, v1.y / s, v1.z / s);
 
-        TestResult::from_bool(::approx_eq(&v3, &v4, &f64::approx_eps()))
+        TestResult::from_bool(ApproxEq::approx_eq(&v3, &v4))
     }
 
     #[quickcheck]
@@ -122,7 +107,7 @@ mod test {
         let v3 = v1 * s;
         let v4 = Vector3::new(v1.x * s, v1.y * s, v1.z * s);
 
-        ::approx_eq(&v3, &v4, &f64::approx_eps())
+        ApproxEq::approx_eq(&v3, &v4)
     }
 
     #[quickcheck]
@@ -145,8 +130,7 @@ mod test {
         v2[1] = 0.0;
         v2[2] = 0.0;
 
-        ::approx_eq(&v2.x, &0.0, &f64::approx_eps()) &&
-        ::approx_eq(&v2.y, &0.0, &f64::approx_eps()) &&
-        ::approx_eq(&v2.z, &0.0, &f64::approx_eps())
+        ApproxEq::approx_eq(&v2.x, &0.0) && ApproxEq::approx_eq(&v2.y, &0.0) &&
+        ApproxEq::approx_eq(&v2.z, &0.0)
     }
 }

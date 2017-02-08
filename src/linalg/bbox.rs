@@ -1,4 +1,4 @@
-use linalg::Point3;
+use linalg::point::Point3;
 
 
 pub struct BBox {
@@ -12,12 +12,16 @@ impl BBox {
     /// # Examples
     ///
     /// ```
-    /// use renderer::linalg::{BBox,Point3};
+    /// use renderer::linalg::bbox::BBox;
+    /// use renderer::linalg::point::Point3;
     ///
     /// let bb = BBox::new(Point3 {x: 0.0, y: 0.0, z: 0.0}, Point3 {x: 1.0, y: 2.0, z: 3.0});
     /// ```
     pub fn new(p_min: Point3, p_max: Point3) -> BBox {
-        BBox {p_min: p_min, p_max: p_max}
+        BBox {
+            p_min: p_min,
+            p_max: p_max,
+        }
     }
 
     /// Computes the volume of a bounding box
@@ -25,7 +29,8 @@ impl BBox {
     /// # Examples
     ///
     /// ```
-    /// use renderer::linalg::{BBox,Point3};
+    /// use renderer::linalg::bbox::BBox;
+    /// use renderer::linalg::point::Point3;
     ///
     /// let bb = BBox::new(Point3 {x: 0.0, y: 0.0, z: 0.0}, Point3 {x: 1.0, y: 2.0, z: 3.0});
     /// let vol = bb.volume();

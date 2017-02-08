@@ -1,5 +1,5 @@
 
-use linalg::Point3;
+use linalg::point::Point3;
 
 use core::Light;
 

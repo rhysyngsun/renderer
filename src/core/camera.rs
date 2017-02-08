@@ -1,6 +1,7 @@
 use core::CameraSample;
 
-use linalg::{Ray, RayDifferential};
+use linalg::ray::Ray;
+use linalg::ray_differential::RayDifferential;
 
 /// Common camera methods
 pub trait Camera {

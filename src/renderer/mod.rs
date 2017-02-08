@@ -1,5 +1,5 @@
 use core::{Sampler, Scene};
-use linalg::RayDifferential;
+use linalg::ray_differential::RayDifferential;
 use film::Spectrum;
 
 mod sampler_renderer;

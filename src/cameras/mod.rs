@@ -1,5 +1,5 @@
 
-use linalg::Vector3;
+use linalg::vector::Vector3;
 
 use linalg::ops::{One, Zero};
 

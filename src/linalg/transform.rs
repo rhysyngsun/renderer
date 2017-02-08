@@ -1,5 +1,6 @@
 
-use linalg::{Cross,Vector3};
+use linalg::ops::Cross;
+use linalg::vector::Vector3;
 
 #[derive(Copy, Clone, Debug, PartialEq)]
 pub struct Mat4(pub [f64; 16]);
@@ -7,18 +8,13 @@ pub struct Mat4(pub [f64; 16]);
 /// Compute the inverse of a matrix
 #[allow(unused_variables)]
 pub fn inverse(m: &Mat4) -> Mat4 {
-   unimplemented!()
+    unimplemented!()
 }
 
 /// A 4x4 matrix, typically used to represent transformations in 3D space.
 impl Mat4 {
     pub fn zero() -> Mat4 {
-        Mat4([
-            0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0,
-            0.0, 0.0, 0.0, 0.0
-        ])
+        Mat4([0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0])
     }
 
     /// Identify matrix
@@ -36,12 +32,7 @@ impl Mat4 {
     /// let ident = Mat4::identity();
     /// ```
     pub fn identity() -> Mat4 {
-        Mat4([
-            1.0, 0.0, 0.0, 0.0,
-            0.0, 1.0, 0.0, 0.0,
-            0.0, 0.0, 1.0, 0.0,
-            0.0, 0.0, 0.0, 1.0
-        ])
+        Mat4([1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0])
     }
 }
 
@@ -92,12 +83,8 @@ impl Transform {
         let left = (up.normalize().cross(&dir)).normalize();
         let new_up = dir.cross(&left);
 
-        let m = Mat4([
-            left.x, new_up.x, dir.x, pos.x,
-            left.y, new_up.y, dir.y, pos.y,
-            left.z, new_up.z, dir.z, pos.z,
-            0.0,    0.0,     0.0,   1.0
-        ]);
+        let m = Mat4([left.x, new_up.x, dir.x, pos.x, left.y, new_up.y, dir.y, pos.y, left.z,
+                      new_up.z, dir.z, pos.z, 0.0, 0.0, 0.0, 1.0]);
 
         Transform::new(m)
     }

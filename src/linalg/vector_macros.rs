@@ -53,7 +53,7 @@ macro_rules! scalar_div_impl {
 
             #[inline]
             fn div(self, rhs: f64) -> $t {
-                assert!(!f64::approx_eq(&rhs, &0.0, &f64::approx_eps()));
+                assert!(!ApproxEq::approx_eq(&rhs, &0.0));
                 let inv = 1.0 / rhs;
                 $t {
                     $( $s: self.$s * inv ), +
@@ -138,7 +138,8 @@ macro_rules! normalize_impl {
         impl $t {
             #[inline]
             pub fn normalize(self) -> $t {
-                self / self.length()
+                let len = self.length();
+                self / len
             }
         }
     }
@@ -173,8 +174,8 @@ macro_rules! one_impl {
 macro_rules! approx_eq_impl {
     ($t: ident, $( $s: ident ), +) => {
         impl ApproxEq<f64> for $t {
-            fn approx_eq(&self, other: &$t, eps: &f64) -> bool {
-                $(::approx_eq(&self.$s, &other.$s, eps))&&+
+            fn approx_eq(&self, other: &$t) -> bool {
+                $(self.$s.approx_eq(&other.$s))&&+
             }
 
             fn approx_eps() -> f64 {

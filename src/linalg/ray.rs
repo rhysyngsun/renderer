@@ -1,21 +1,22 @@
-use linalg::{Point3, Vector3};
+use linalg::point::Point3;
+use linalg::vector::Vector3;
 
 
 /// A ray (point + vector + time)
 pub struct Ray {
-    origin: Point3,
-    dir: Vector3,
+    pub origin: Point3,
+    pub dir: Vector3,
 
-    min_t: f64,
-    max_t: f64,
-    time: f64,
+    pub min_t: f64,
+    pub max_t: f64,
+    pub time: f64,
 
-    depth: usize,
+    pub depth: usize,
 }
 
 impl Ray {
     /// Constructs a new ray
-    fn new(origin: Point3, dir: Vector3, start: f64, end: f64, t: f64, d: usize) -> Self {
+    pub fn new(origin: Point3, dir: Vector3, start: f64, end: f64, t: f64, d: usize) -> Self {
         Ray {
             origin: origin,
             dir: dir,
@@ -27,7 +28,7 @@ impl Ray {
     }
 
     /// Creates a new child Ray.
-    fn new_child(origin: Point3, dir: Vector3, parent: &Ray, start: f64, end: f64) -> Self {
+    pub fn new_child(origin: Point3, dir: Vector3, parent: &Ray, start: f64, end: f64) -> Self {
         Ray {
             origin: origin,
             dir: dir,
@@ -36,5 +37,9 @@ impl Ray {
             time: parent.time,
             depth: parent.depth + 1,
         }
+    }
+
+    fn along(self, time: f64) -> Point3 {
+        self.origin + self.dir * time
     }
 }

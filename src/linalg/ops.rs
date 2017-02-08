@@ -6,7 +6,7 @@ pub trait One {
 }
 
 pub trait Zero {
-    fn zero() ->Self;
+    fn zero() -> Self;
 }
 
 pub trait Sqrt<N> {
@@ -28,25 +28,16 @@ pub trait Dot {
 }
 
 pub trait ApproxEq<Eps> {
-    fn approx_eq(&self, other: &Self, epsilon: &Eps) -> bool;
+    fn approx_eq(&self, other: &Self) -> bool;
     fn approx_eps() -> Eps;
 }
 
-impl ApproxEq<f32> for f32 {
-    fn approx_eq(&self, other: &f32, epsilon: &f32) -> bool {
-        ::abs(&(*self - *other)) < *epsilon
-    }
-
-    fn approx_eps() -> f32 {
-        1e-6
-    }
-}
-
 impl ApproxEq<f64> for f64 {
-    fn approx_eq(&self, other: &f64, epsilon: &f64) -> bool {
-        ::abs(&(*self - *other)) < *epsilon
+    fn approx_eq(&self, other: &f64) -> bool {
+        f64::abs(*self - *other) < f64::approx_eps()
     }
 
+    #[inline]
     fn approx_eps() -> f64 {
         1e-6
     }
@@ -72,7 +63,7 @@ macro_rules! absolute_id_impl {
     )*)
 }
 
-absolute_impl! { f32 f64 }
+absolute_impl! { f64 }
 
 macro_rules! impl_float_sqrt {
     ($n: ty) => {

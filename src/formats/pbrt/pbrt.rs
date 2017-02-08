@@ -2,7 +2,8 @@ use std::str::{self, FromStr};
 
 use nom::{digit, space};
 
-use linalg::{Transform, Vector3};
+use linalg::vector::Vector3;
+use linalg::transform::Transform;
 
 named!(unsigned_float<f64>, map_res!(
   map_res!(
@@ -57,8 +58,6 @@ named!(transformation<Transform>, alt!(
 #[cfg(test)]
 mod tests {
     use nom::IResult::Done;
-
-    use linalg::Vector3;
 
     use super::*;
 

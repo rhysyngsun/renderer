@@ -1,6 +1,7 @@
 use std::mem;
 use std::ops::{Add, Sub, Mul, Div, Neg, Index, IndexMut};
-use linalg::{Vector3, ApproxEq};
+use linalg::vector::Vector3;
+use linalg::ops::{One, Zero, ApproxEq};
 
 /// A point of 3 values
 #[derive(Debug, Copy, Clone)]
@@ -22,12 +23,13 @@ scalar_neg_impl!(Point3, x, y, z);
 scalar_to_array_impl!(Point3, 3);
 scalar_index_impl!(Point3);
 pnt_distance_impl!(Point3);
+zero_impl!(Point3, x, y, z);
+one_impl!(Point3, x, y, z);
 
 
 #[cfg(test)]
 mod test {
     use super::*;
-    use linalg::Vector3;
 
     #[test]
     fn op_add_point() {

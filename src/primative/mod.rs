@@ -1,4 +1,5 @@
-use linalg::{Ray, Intersection};
+use linalg::ray::Ray;
+use linalg::intersection::Intersection;
 
 
 pub trait Primative {

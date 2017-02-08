@@ -1,7 +1,8 @@
 
 use core::Light;
 use primative::{Aggregate, TransformedPrimative};
-use linalg::{Ray, Intersection};
+use linalg::ray::Ray;
+use linalg::intersection::Intersection;
 
 pub struct Scene {
     pub aggregate: Box<Aggregate>,

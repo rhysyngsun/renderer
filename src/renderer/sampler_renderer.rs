@@ -1,7 +1,7 @@
 use core::{Camera, Integrator, Sampler, Scene};
 use film::Spectrum;
 
-use linalg::RayDifferential;
+use linalg::ray_differential::RayDifferential;
 
 use integrator::{SurfaceIntegrator, VolumeIntegrator};
 
